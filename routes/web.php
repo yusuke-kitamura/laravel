@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// 投稿一覧画面を表示（トップ画面)
+Route::get('/', 'PostsController@index')->name('top');
+//投稿の作成と保存と詳細と編集
+Route::resource('posts','PostsController',['only' => ['create','store','show','edit','update','destroy']]);
+
+// コメントを保存
+Route::resource('comments','CommentsController',['only' => ['store']]);
