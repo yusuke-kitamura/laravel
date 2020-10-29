@@ -37,5 +37,28 @@ class PostsController extends Controller
 		return redirect(route('posts.index'));
 	}
 
+	// 記事の編集
+	public function edit($id){
+		$post = Post::find($id);
+		return view('posts.edit',['post' => $post]);
+	}
+
+	// 記事の更新
+	public function update(Request $request, $id){
+		$post = Post::find($id);
+		$post->title = $request->title;
+  		$post->body = $request->body;
+		$post->save();
+		return redirect(route('posts.show',['post'=>$post]));
+	}
+
+	// 投稿の削除
+	public function destroy($id){
+		$post = Post::find($id);
+		$post->comments()->delete(); // ←★コメント削除実行
+ 		$post->delete();
+		return redirect(route('top'));
+	}
+
 
 }
