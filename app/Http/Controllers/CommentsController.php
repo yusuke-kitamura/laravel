@@ -15,4 +15,9 @@ class CommentsController extends Controller
 		$post->comments()->create($inputs);
 		return redirect(route('posts.show',['post' => $post]));
 	}
+
+	public function destroy($id){
+		Comment::destroy($id);
+		return redirect(route('top'));
+	}
 }
